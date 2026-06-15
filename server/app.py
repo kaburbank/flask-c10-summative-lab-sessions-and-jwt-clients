@@ -7,9 +7,11 @@ from extensions import bcrypt, db, migrate
 from models import Note, User
 
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
     app.config.from_object(Config)
+    if test_config:
+        app.config.update(test_config)
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -176,7 +178,7 @@ def create_app():
         user_id = session.get("user_id")
         if not user_id:
             return None
-        return User.query.get(user_id)
+        return db.session.get(User, user_id)
 
     def require_auth():
         return current_user()
