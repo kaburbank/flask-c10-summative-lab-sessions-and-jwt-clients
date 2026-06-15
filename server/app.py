@@ -3,7 +3,8 @@ from math import ceil
 from flask import Flask, jsonify, request, session
 
 from config import Config
-from models import Note, User, db
+from extensions import bcrypt, db, migrate
+from models import Note, User
 
 
 def create_app():
@@ -11,6 +12,8 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
+    migrate.init_app(app, db)
+    bcrypt.init_app(app)
 
     @app.get("/")
     def index():
@@ -185,6 +188,4 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(port=5555, debug=True)

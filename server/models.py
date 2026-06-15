@@ -1,10 +1,8 @@
-from datetime import datetime, timezone
+from datetime import timezone
 
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
-from werkzeug.security import check_password_hash, generate_password_hash
 
-db = SQLAlchemy()
+from extensions import bcrypt, db
 
 
 class User(db.Model):
@@ -26,10 +24,10 @@ class User(db.Model):
     def password_hash(self, password):
         if not password or len(password) < 8:
             raise ValueError("Password must be at least 8 characters long.")
-        self._password_hash = generate_password_hash(password)
+        self._password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
 
     def authenticate(self, password):
-        return check_password_hash(self._password_hash, password)
+        return bcrypt.check_password_hash(self._password_hash, password)
 
     def to_dict(self):
         return {"id": self.id, "username": self.username}
