@@ -67,6 +67,15 @@ cd server
 python seed.py
 ```
 
+## Automated Tests
+
+Run the lightweight backend test suite with one command:
+
+```bash
+cd server
+pytest
+```
+
 ## Start Server
 
 ```bash
