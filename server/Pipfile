@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Flask = "==3.0.3"
+Flask-SQLAlchemy = "==3.1.1"
+Flask-Migrate = "==4.0.7"
+Flask-Bcrypt = "==1.0.1"
+
+[dev-packages]
+pytest = "==8.2.2"
+
+[requires]
+python_version = "3.12"
