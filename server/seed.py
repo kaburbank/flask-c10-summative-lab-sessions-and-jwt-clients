@@ -1,9 +1,18 @@
+"""Database seeding script for development and testing.
+
+Creates sample users and notes to populate the database.
+"""
+
 from app import app
 from extensions import db
 from models import Note, User
 
 
 def seed():
+    """Clear existing data and create sample users and notes.
+    
+    Creates two users (alice, bob) with sample notes to test the API.
+    """
     with app.app_context():
         Note.query.delete()
         User.query.delete()
